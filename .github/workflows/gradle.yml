@@ -54,6 +54,16 @@ jobs:
 
     - name: Run Tests
       run: ./gradlew test --no-daemon
+
+    - name: Build and Test with JaCoCo
+      run: ./gradlew clean build jacocoTestReport
+
+    
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: jacoco-report
+        path: build/reports/jacoco/test/html/
     
 
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.

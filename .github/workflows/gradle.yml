@@ -1,0 +1,95 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+# This workflow builds a Java project with Gradle, runs Checkstyle, SpotBugs, JaCoCo, and caches dependencies for efficiency.
+
+# This workflow builds a Java project with Gradle, runs Checkstyle, SpotBugs, JaCoCo, and caches dependencies for efficiency.
+name: Java CI with Checkstyle, SpotBugs, and JaCoCo
+
+on:
+  push:
+    branches:
+      - '**' # Run on all branches for push events
+  pull_request:
+    branches:
+      - '**' # Run on all branches for pull requests
+  workflow_dispatch: # Allow manual triggering of the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Step 3: Cache Gradle dependencies
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle
+
+      # Step 4: Run Gradle Build
+      - name: Run Gradle Build
+        run: ./gradlew build --no-daemon
+
+      # Step 5: Run Checkstyle
+      - name: Run Checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest --no-daemon
+
+      # Step 6: Run SpotBugs
+      - name: Run SpotBugs
+        run: ./gradlew spotbugsMain spotbugsTest --no-daemon
+
+      # Step 7: Run Tests
+      - name: Run Tests
+        run: ./gradlew test --no-daemon
+
+      # Step 8: Build and Test with JaCoCo
+      - name: Build and Test with JaCoCo
+        run: ./gradlew clean build jacocoTestReport
+
+      # Step 9: Upload Coverage Report
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test/html/
+
+  dependency-submission:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # Step 1: Checkout code
+      - uses: actions/checkout@v4
+
+      # Step 2: Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Step 3: Submit dependencies
+      - name: Generate and Submit Dependency Graph
+        uses: gradle/actions/dependency-submission@v4
+

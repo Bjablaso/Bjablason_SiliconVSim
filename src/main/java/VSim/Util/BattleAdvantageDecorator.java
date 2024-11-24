@@ -12,7 +12,8 @@ public class BattleAdvantageDecorator extends StartUp {
                 baseStartup.getNetIncome(),
                 baseStartup.getRevenue(),
                 baseStartup.getMarketShare(),
-                baseStartup.getFunds()
+                baseStartup.getFunds(),
+                baseStartup.getLevel()
         );
 
         this.baseStartup = baseStartup;

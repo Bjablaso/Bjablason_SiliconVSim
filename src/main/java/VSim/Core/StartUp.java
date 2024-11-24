@@ -20,12 +20,12 @@ public class StartUp implements StartUpInterface {
     private List<AttackType> attacks; // List of available attacks
 
 
-    public StartUp(StartupType type, int netIncome, int revenue, int marketShare, double funds) {
+    public StartUp(StartupType type, int netIncome, int revenue, int marketShare, double funds, StartupLevel levelType ) {
         this.type = type;
         this.netIncome = netIncome;
         this.revenue = revenue;
         this.marketShare = marketShare;
-        this.level = StartupLevel.GARAGE_STARTUP; // Default level
+        this.level = levelType; // Default level
         this.xp = 0;
         this.attacks = new ArrayList<>();
         this.funds = setinitialFunds(funds);

@@ -9,12 +9,10 @@ public enum EventType {
     private final String description;
     private double impactFactor;
 
-
     EventType(String description, double impactFactor) {
         this.description = description;
         this.impactFactor = impactFactor;
     }
-
 
     public String getDescription() {
         return description;

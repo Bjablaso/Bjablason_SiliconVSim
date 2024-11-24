@@ -1,9 +1,27 @@
 package VSim;
 
+import VSim.Types.EventType;
+
 public class Main {
     public static void main(String[] args) {
+        RunSimulation sim = new RunSimulation();
+        boolean simend = false;
+        int count = 0;
+        EventType event = null;
+        String name = null;
+        double impactFactor = 0;
 
-        System.out.println("Hello world!");
+        while(!simend){
+
+            event = sim.quaterlyEvent();
+            name = sim.getQuarterName();
+            impactFactor = event.getImpactFactor();
+            System.out.println("This quater ( "+ name + ") "+ "Event is : " + event + "Impact factor : " + impactFactor);
+            if(count == 8){
+                simend = true;
+            }
+            count++;
+        }
     }
 }
 

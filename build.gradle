@@ -3,10 +3,15 @@ plugins {
     id "checkstyle"
     id "com.github.spotbugs" version "5.0.13"
     id  'jacoco'
+    id   'application'
 }
 
 group = 'com.beginsecure'
 version = '1.0-SNAPSHOT'
+
+application {
+  mainClass = 'VSim.Main'
+}
 
 repositories {
     mavenCentral()
@@ -32,6 +37,8 @@ checkstyle {
 }
 
 tasks.withType(Checkstyle).configureEach {
+    source = fileTree('src/main/java')
+    include '**/*.java'
     reports {
         xml.required.set(false)
         html.required.set(true)
@@ -47,6 +54,9 @@ spotbugs {
 }
 
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    dependsOn tasks.compileJava
+   // source = fileTree('src/main/java')
+    classes = fileTree('build/classes/java/main')
     reports {
         html.required.set(true)
         xml.required.set(false)
@@ -68,5 +78,12 @@ jacocoTestReport {
         xml.required.set(false)  // Correctly set to 'false'
         html.required.set(true)  // Enable HTML report
         csv.required.set(false)  // Disable CSV report
+    }
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
     }
 }

@@ -7,10 +7,10 @@ public enum AttackType {
     PRICE_UNDERCUTTING("Reduces opponent's revenue", 20);
 
     private final String description; // Description of the attack
-    private final int damage;         // Base damage value of the attack
+    private  double damage;         // Base damage value of the attack
 
     // Constructor
-    AttackType(String description, int damage) {
+    AttackType(String description, double damage) {
         this.description = description;
         this.damage = damage;
     }
@@ -21,7 +21,20 @@ public enum AttackType {
     }
 
     // Getter for damage
-    public int getDamage() {
+    public double getDamage() {
         return damage;
+    }
+    public void setDamage(AttackType attackType, double damagex) {
+       switch (attackType){
+           case TALENT_DRAIN:
+               this.damage = damagex;
+               break;
+           case TRADE_SECRET_THEFT:
+                   this.damage = damagex;
+                   break;
+           case PRICE_UNDERCUTTING:
+               this.damage = damagex;
+               break;
+       }
     }
 }

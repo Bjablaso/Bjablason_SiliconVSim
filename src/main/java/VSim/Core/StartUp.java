@@ -45,7 +45,6 @@ public class StartUp implements StartUpInterface {
     public double getRevenue() { return revenue; }
     public double getMarketShare() { return marketShare; }
     public StartUpGrade getGrade() { return grade; }
-   // public double getFunds() { return funds; }
     public StartupLevel getLevel() { return level; }
     public int getXp() { return xp; }
     public void setXp(int xp) { this.xp = xp; }

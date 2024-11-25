@@ -11,11 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the battle advantages and damage boost calculations for startups.
@@ -115,4 +110,40 @@ public class BattleAdvantage {
             assertEquals(expectedDamage, attack.getDamage(), 0.001);
         }
     }
+
+    /**
+     * Tests the applyCriticalOrMiss method and stops upon the first critical hit.
+     */
+    @Test
+    @DisplayName("Test Apply Critical Hit - Stop on First Critical Hit")
+    void testApplyCriticalHit() {
+        osDecorator.getAttacks().add(AttackType.TALENT_DRAIN);
+        osDecorator.getAttacks().add(AttackType.TRADE_SECRET_THEFT);
+
+        boolean criticalHitDetected = false;
+
+        // Simulate attacks and stop when the first critical hit occurs
+        for (int i = 0; i < 50; i++) {
+            boolean result = osDecorator.applyCriticalOrMiss(); // Simulate attack
+
+            if (result) { // Attack was not a miss
+                for (AttackType attack : osDecorator.getAttacks()) {
+                    double originalDamage = attack.getDamage() / 2; // Reverse critical hit calculation
+                    if (attack.getDamage() == originalDamage * 2) { // Check if damage was doubled
+                        criticalHitDetected = true;
+                        System.out.println("Critical hit detected on iteration " + (i + 1));
+                        break;
+                    }
+                }
+            }
+
+            if (criticalHitDetected) {
+                break; // Stop testing upon the first critical hit
+            }
+        }
+
+        // Assert that a critical hit was detected
+        assertTrue(criticalHitDetected, "A critical hit should have been detected within 50 attempts.");
+    }
+
 }

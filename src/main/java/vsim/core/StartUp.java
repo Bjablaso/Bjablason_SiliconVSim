@@ -47,13 +47,20 @@ public class StartUp implements StartUpInterface {
     }
 
     /**
-     * Adds an attack to the list of attacks.
+     * Adds all attacks from the AttackType enum to the list of attacks.
      *
-     * @param attack The attack type to add.
+     * @return The current instance of the startup (for chaining or further modifications).
      */
-    public void addAttack(AttackType attack) {
-        attacks.add(attack);
+    public StartUp addAttack() {
+        attacks.clear();
+
+        for (AttackType attackType : AttackType.values()) {
+            attacks.add(attackType);
+        }
+
+        return this;
     }
+
 
     public StartupType getType() {
         return type;

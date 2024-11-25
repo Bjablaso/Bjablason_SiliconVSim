@@ -1,7 +1,6 @@
 package VSim.Core;
 
 import VSim.SimInterface.EventObserver;
-import VSim.Types.EventType;
 import VSim.Types.Quarter;
 
 import java.util.ArrayList;

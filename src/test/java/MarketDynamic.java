@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 
 import VSim.Core.StartUp;
@@ -19,7 +18,6 @@ public class MarketDynamic {
 
     @BeforeEach
     void setup() {
-        // Initialize different StartUp objects to hit various branches
         fintechStartup = new StartUp("FinTech Startup", StartupType.FINTECH,
                 100000, 30000, 20.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
 
@@ -70,32 +68,32 @@ public class MarketDynamic {
     @Test
     @DisplayName("Test Apply Event Effect - Regulatory Scrutiny on Large Startup")
     void testRegulatoryScrutinyLargeStartup() {
-        Quarter event = Quarter.ThirdQuarter; // Associated with Regulatory Scrutiny
+        Quarter event = Quarter.ThirdQuarter;
 
-        // Expected market share reduction for large startup
+
         double expectedMarketShare = largeStartup.getMarketShare() -
                 (largeStartup.getMarketShare() * (largeStartup.getGrade().getMarketShare() / 100.0));
 
-        // Apply event effect
+
         largeStartup.applyEventEffect(event);
 
-        // Assert market share change
+
         assertEquals(expectedMarketShare, largeStartup.getMarketShare(), 0.001);
     }
 
     @Test
     @DisplayName("Test Apply Event Effect - Regulatory Scrutiny on Small Startup")
     void testRegulatoryScrutinySmallStartup() {
-        Quarter event = Quarter.ThirdQuarter; // Associated with Regulatory Scrutiny
+        Quarter event = Quarter.ThirdQuarter;
 
-        // Expected market share increase for small startup
+
         double expectedMarketShare = smallStartup.getMarketShare() +
                 (smallStartup.getGrade().getMarketShare() * 2.75 / 100.0);
 
-        // Apply event effect
+
         smallStartup.applyEventEffect(event);
 
-        // Assert market share change
+
         assertEquals(expectedMarketShare, smallStartup.getMarketShare(), 0.001);
     }
 }

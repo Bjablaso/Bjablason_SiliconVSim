@@ -1,13 +1,15 @@
 package VSim.Core;
 
 import VSim.SimInterface.EventObserver;
+import VSim.Types.EventType;
+import VSim.Types.Quarter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TechGiant implements EventObserver {
     private String name;
-    private String currentEvent;
+    private Quarter currentEvent;
     private List<StartUp> startups;
     private double funds;
     private boolean exitSim; // -> determine if tech Giant should exit sim after a specified action.
@@ -17,6 +19,7 @@ public class TechGiant implements EventObserver {
         this.startups = new ArrayList<>();
         this.funds = initialFunds;
         this.currentEvent = null;
+
         this.exitSim = false;
     }
 
@@ -29,12 +32,12 @@ public class TechGiant implements EventObserver {
     }
 
     @Override
-    public void update(String eventName) {
+    public void update(Quarter eventName) {
         this.currentEvent = eventName;
         System.out.println(name + " received event notification:\t " + eventName);
     }
 
-    public String getCurrentEvent() {
+    public Quarter getCurrentEvent() {
         return currentEvent;
     }
 

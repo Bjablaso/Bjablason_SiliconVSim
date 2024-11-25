@@ -23,7 +23,7 @@ public class RunSimulation {
      * Determine the Current Cycle to apply the cycle Event.
      * @return current cycle EventTye
      */
-    public EventType quaterlyEvent(){
+    public Quarter quaterlyEvent(){
         EventType currentEvent = null;
         Quarter currentQuaterly = null;
           if(!SimulationEnded){
@@ -33,7 +33,7 @@ public class RunSimulation {
         assert currentQuaterly != null;
 
         this.quaterName = currentQuaterly.getDescription();
-        return currentEvent = currentQuaterly.getType();
+        return currentQuaterly;
     }
 
     /**

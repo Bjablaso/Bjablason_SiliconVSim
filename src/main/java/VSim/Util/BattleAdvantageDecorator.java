@@ -9,11 +9,13 @@ public class BattleAdvantageDecorator extends StartUp {
 
     public BattleAdvantageDecorator(StartUp baseStartup) {
         super(
+                baseStartup.getName(),
                 baseStartup.getType(),
                 baseStartup.getNetIncome(),
                 baseStartup.getRevenue(),
                 baseStartup.getMarketShare(),
-                baseStartup.getFunds(),
+                baseStartup.getGrade(),
+               // baseStartup.getFunds(),
                 baseStartup.getLevel()
         );
 

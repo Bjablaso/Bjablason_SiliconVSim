@@ -1,10 +1,10 @@
-package VSim.Util;
+package vsim.util;
 
-import VSim.Types.Quarter;
+import vsim.types.Quarter;
 
 /**
  * Create circular List to iterate through the different quarter until the simulation end.
- * this class uses Singleton design pattern to keep only one instance of the Quarterly Cycle throughout our program
+ * this class uses Singleton design pattern to keep nly one instance.
  */
 public class QuarterCycle {
     private Node head;
@@ -14,60 +14,57 @@ public class QuarterCycle {
 
     /**
      * create a new  circular linked list Base Quarter enum class.
-     */
+     * */
     public QuarterCycle() {
-       Node mover = null;
-        for(Quarter q : Quarter.values()) {
+        Node mover = null;
+        for (Quarter q : Quarter.values()) {
             Node newNode = new Node(q);
-
-            if(head == null) {
+            if (head == null) {
                 head = newNode;
                 mover = head;
-            }else {
+            } else {
                 mover.next = newNode;
                 mover = mover.next;
                 tail = mover;
             }
         }
-
-        if(tail != null) {
+        if (tail != null) {
             tail.next = head;
         }
         current = head;
     }
 
-
     /**
-     * This method return the Current Quarter
-     * @return current Quarter
+     * This method return the Current Quarter.
+     * @return current Quarter.
      */
     public Quarter getcurrentquaterCycle() {
-       Quarter currentQuarter = current.quarter;
+        Quarter currentQuarter = current.quarter;
         current = current.next;
         return currentQuarter;
     }
 
     /**
-     * This method return a single instance
-     * @return new QuarterCycle
+     * This method return a single instance.
+     * @return new QuarterCycle.
      */
     public static QuarterCycle getSinglequarterInstance() {
-        if(singlequarterInstance == null) {
+        if (singlequarterInstance == null) {
             singlequarterInstance = new QuarterCycle();
         }
         return singlequarterInstance;
     }
 
     /**
-     * Node class that create node that will later be added to our circular linked list
+     * Node class that create node that will later be added to our circular linked list.
      */
     class Node {
         Quarter quarter;
         Node next;
 
         /**
-         * Initialize a new node
-         * @param quarter
+         * Initialize a new node.
+         * @param quarter -> take in Quarter Reference and Create a Node.
          */
         public Node(Quarter quarter) {
             this.quarter = quarter;
@@ -75,16 +72,16 @@ public class QuarterCycle {
         }
 
         /**
-         * Get a specific node in the list
-         * @return Quarter
+         * Get a specific node in the list.
+         * @return Quarter.
          */
         public Quarter getQuarter() {
             return quarter;
         }
 
         /**
-         * Go to the next node
-         * @return next
+         * Go to the next node.
+         * @return next.
          */
         public Node getNext() {
             return next;

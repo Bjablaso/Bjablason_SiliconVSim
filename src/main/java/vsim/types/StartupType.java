@@ -1,4 +1,4 @@
-package VSim.Types;
+package vsim.types;
 
 
 public enum StartupType {

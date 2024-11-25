@@ -1,7 +1,7 @@
-package VSim.Core;
+package vsim.core;
 
-import VSim.SimInterface.StartUpInterface;
-import VSim.Types.*;
+import vsim.siminterface.StartUpInterface;
+import vsim.types.*;
 
 import java.util.ArrayList;
 import java.util.List;

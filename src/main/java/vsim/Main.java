@@ -1,12 +1,4 @@
-package VSim;
-
-import VSim.Core.StartUp;
-import VSim.Core.TechGiant;
-import VSim.SimInterface.EventObserver;
-import VSim.Types.EventType;
-import VSim.Types.StartupLevel;
-import VSim.Types.StartupType;
-import VSim.Util.Event;
+package vsim;
 
 public class Main {
     public static void main(String[] args) {

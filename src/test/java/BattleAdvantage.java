@@ -3,9 +3,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
-import VSim.Core.StartUp;
-import VSim.Util.BattleAdvantageDecorator;
-import VSim.Types.*;
+import vsim.core.StartUp;
+import vsim.util.BattleAdvantageDecorator;
+import vsim.types.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

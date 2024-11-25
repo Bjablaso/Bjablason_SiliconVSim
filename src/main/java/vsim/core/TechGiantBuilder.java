@@ -1,4 +1,4 @@
-package VSim.Core;
+package vsim.core;
 
 import java.util.ArrayList;
 import java.util.List;

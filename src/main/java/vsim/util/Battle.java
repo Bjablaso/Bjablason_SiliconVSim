@@ -1,18 +1,19 @@
-package VSim.Util;
+package vsim.util;
 
-import VSim.Core.StartUp;
+import vsim.core.StartUp;
 
 /**
- * Battle class create a landscape for Tech Giant startup to engauge in battle when 4 quarter conmanses
+ * Battle class create a landscape for Tech Giant startup to engage in battle.
+ * Battle between start up only occur in the 4 quarter of the year.
  */
 public class Battle {
     private StartUp startup1;
     private StartUp startup2;
 
     /**
-     * Initialiazes start for battle
-     * @param startup1
-     * @param startup2
+     * Initialiazes start for battle.
+     * @param startup1 -> First start up.
+     * @param startup2 -> Second Startup.
      */
     public Battle(StartUp startup1, StartUp startup2) {
         this.startup1 = startup1;
@@ -20,8 +21,8 @@ public class Battle {
     }
 
     /**
-     * Start the Battle
-     * @return
+     * Method conduct a startup battle.
+     * @return the winning start up.
      */
     public StartUp startBattle() {
         // Implement the battle logic here

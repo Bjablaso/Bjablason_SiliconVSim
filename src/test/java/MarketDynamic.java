@@ -2,9 +2,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 
-import VSim.Core.StartUp;
+import vsim.core.StartUp;
 
-import VSim.Types.*;
+import vsim.types.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

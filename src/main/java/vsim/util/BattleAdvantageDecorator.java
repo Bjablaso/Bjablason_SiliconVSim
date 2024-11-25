@@ -1,11 +1,8 @@
-package VSim.Util;
+package vsim.util;
 
-import VSim.Core.StartUp;
-import VSim.Core.TechGiant;
-import VSim.Types.AttackType;
-import VSim.Types.StartupType;
-
-import java.util.List;
+import vsim.core.StartUp;
+import vsim.types.AttackType;
+import vsim.types.StartupType;
 
 
 public class BattleAdvantageDecorator extends StartUp {

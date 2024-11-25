@@ -1,8 +1,7 @@
-package VSim.SimInterface;
+package vsim.siminterface;
 
-import VSim.Core.StartUp;
-import VSim.Types.EventType;
-import VSim.Types.Quarter;
+import vsim.core.StartUp;
+import vsim.types.Quarter;
 
 public interface StartUpInterface {
     void levelUp();

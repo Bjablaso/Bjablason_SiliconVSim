@@ -1,7 +1,7 @@
-package VSim.Core;
+package vsim.core;
 
-import VSim.SimInterface.EventObserver;
-import VSim.Types.Quarter;
+import vsim.siminterface.EventObserver;
+import vsim.types.Quarter;
 
 import java.util.ArrayList;
 import java.util.List;

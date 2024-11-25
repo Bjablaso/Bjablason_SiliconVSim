@@ -1,8 +1,8 @@
-package VSim;
+package vsim;
 
-import VSim.Types.EventType;
-import VSim.Types.Quarter;
-import VSim.Util.QuarterCycle;
+import vsim.types.EventType;
+import vsim.types.Quarter;
+import vsim.util.QuarterCycle;
 
 /***
  * RunSimulator Class establishes All simulated Event that could occur base on certain triggers

@@ -17,9 +17,12 @@ public class StartUp implements StartUpInterface {
     private double marketShare; // Defense
     private StartUpGrade grade;
     private StartupLevel level; // e.g., GARAGE_STARTUP, TECH_STAR
+    private int levelVal;
     private int xp; // Experience Points
     private List<AttackType> attacks; // List of available attacks
     private final double marketsharReduction = 2.75;
+    private int windeterminer; // 0 for initial , 1 if battle is one, -1 if battle is loss
+
 
     /**
      * Constructs a startup with the specified parameters.
@@ -42,7 +45,9 @@ public class StartUp implements StartUpInterface {
         this.marketShare = marketShare;
         this.grade = grade;
         this.level = levelType; // Default level
+        setLevelVal(level.getLevelVal());
         this.xp = 0;
+        this.windeterminer = 0;
         this.attacks = new ArrayList<>();
     }
 
@@ -90,6 +95,18 @@ public class StartUp implements StartUpInterface {
         return level;
     }
 
+    public int getWindeterminer() {
+        return windeterminer;
+    }
+
+    public void updategetWindeterminer(int winValue){
+        this.windeterminer = winValue;
+    }
+
+    public void setLevelVal(int levelVal) {
+        this.levelVal = levelVal;
+    }
+
     public int getXp() {
         return xp;
     }
@@ -110,11 +127,11 @@ public class StartUp implements StartUpInterface {
         return funds;
     }
 
-    protected void updateRevenue(double funds) {
+    public void updateRevenue(double funds) {
         this.revenue += funds;
     }
 
-    protected void updateMarketShare(double share) {
+    public void updateMarketShare(double share) {
         this.marketShare += share;
     }
 
@@ -123,8 +140,24 @@ public class StartUp implements StartUpInterface {
     }
 
     @Override
-    public void levelUp() {
-        // Placeholder for level-up logic
+    public void levelUp(int valueGain) {
+        this.levelVal += valueGain;
+
+        switch (levelVal){
+            case  1:
+                level = StartupLevel.GARAGE_STARTUP;
+                break;
+            case 5:
+                level = StartupLevel.TECH_STAR;
+                System.out.println(name+ "Start Up achieve new Live : " + levelVal);
+                break;
+            case 10:
+                level = StartupLevel.UNICORN;
+                System.out.println(name+ "Start Up achieve new Live : " + levelVal);
+                break;
+            default:
+                throw new IllegalCallerException("Cannot exceed max level " + level);
+        }
     }
 
     /**
@@ -172,9 +205,6 @@ public class StartUp implements StartUpInterface {
         }
     }
 
-    @Override
-    public void attack(StartUp target) {
-        // Placeholder for attack logic
-    }
+
 }
 

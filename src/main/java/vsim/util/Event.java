@@ -49,4 +49,8 @@ public class Event {
             observer.update(currentEvent);
         }
     }
+
+    public void updateEvent(Quarter quarter) {
+        this.currentEvent = quarter;
+    }
 }

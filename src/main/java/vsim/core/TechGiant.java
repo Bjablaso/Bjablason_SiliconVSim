@@ -8,10 +8,6 @@ import vsim.siminterface.EventObserver;
 import vsim.types.Action;
 import vsim.types.Quarter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 /**
  * Represents a Tech Giant entity in the simulation.
  * Tech Giants manage startups, funds, and respond to events during the simulation.
@@ -23,6 +19,7 @@ public class TechGiant implements EventObserver {
     private double funds; // Available funds for investments and acquisitions
     private boolean exitSim; // Determines if the Tech Giant should exit the simulation
     private double investment; // Amount allocated for investment
+    private StartUp battlePick;
 
     /**
      * Constructs a Tech Giant with a specified name and initial funds.
@@ -37,6 +34,7 @@ public class TechGiant implements EventObserver {
         this.currentEvent = null;
         this.investment = 0.0;
         this.exitSim = false;
+        this.battlePick = null;
     }
 
     /**
@@ -145,13 +143,10 @@ public class TechGiant implements EventObserver {
      * @param startup The startup to acquire.
      */
     public void acquireStartup(StartUp startup) {
-        if (funds < 0 || funds < (funds - startup.getRevenue())) {
-            throw new IllegalArgumentException(name + " has insufficient funds, cannot acquire startup\n");
-        } else {
-            this.funds -= startup.getRevenue();
+
             startups.add(startup);
             System.out.println(name + " acquired new startup " + startup.getName() + ". Current funds amount: " + funds + "\n");
-        }
+
     }
 
     /**
@@ -222,6 +217,14 @@ public class TechGiant implements EventObserver {
         }
     }
 
+    public StartUp BattlePic(StartUp startupPick) {
+        if(!startups.contains(startupPick)) {
+            throw new IllegalArgumentException(name + " has no startup " + startupPick.getName() + "\n");
+        }
+
+        return this.battlePick = startupPick;
+    }
+
     /**
      * Checks if the Tech Giant should exit the simulation.
      *
@@ -232,5 +235,9 @@ public class TechGiant implements EventObserver {
             return this.exitSim = true;
         }
         return this.exitSim = false;
+    }
+
+    public StartUp getBattlePick() {
+        return battlePick;
     }
 }

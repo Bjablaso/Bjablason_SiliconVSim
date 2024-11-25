@@ -1,30 +1,33 @@
 package vsim.util;
 
 import vsim.core.StartUp;
+import vsim.core.TechGiant;
+import vsim.types.Quarter;
 
 /**
  * Battle class create a landscape for Tech Giant startup to engage in battle.
  * Battle between start up only occur in the 4 quarter of the year.
  */
-public class Battle {
-    private StartUp startup1;
-    private StartUp startup2;
+public class Battle<T> {
+    private T battlerOne;
+    private T battlerTwo;
+
 
     /**
-     * Initialiazes start for battle.
-     * @param startup1 -> First start up.
-     * @param startup2 -> Second Startup.
+     * Initializes participants for the battle.
+     * @param battlerOne -> First participant.
+     * @param battlerTwo -> Second participant.
      */
-    public Battle(StartUp startup1, StartUp startup2) {
-        this.startup1 = startup1;
-        this.startup2 = startup2;
+    public Battle(T battlerOne, T battlerTwo) {
+        this.battlerOne = battlerOne;
+        this.battlerTwo = battlerTwo;
     }
 
     /**
-     * Method conduct a startup battle.
-     * @return the winning start up.
+     * Method to conduct a battle.
+     * @return the winning participant.
      */
-    public StartUp startBattle() {
+    public StartUp startBattle(Quarter currentquarterEvent) {
         // Implement the battle logic here
         // For example, compare attributes and determine the winner
         // Return the winning startup

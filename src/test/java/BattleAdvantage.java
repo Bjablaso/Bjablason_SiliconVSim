@@ -11,17 +11,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Tests the battle advantages and damage boost calculations for startups.
+ */
 public class BattleAdvantage {
-    StartUp osStartup;
-    StartUp socialMediaStartup;
-    StartUp fintechStartup;
-    StartUp realEstateStartup;
-    BattleAdvantageDecorator osDecorator;
-    BattleAdvantageDecorator socialMediaDecorator;
-    BattleAdvantageDecorator fintechDecorator;
-    BattleAdvantageDecorator realEstateDecorator;
+    private StartUp osStartup;
+    private StartUp socialMediaStartup;
+    private StartUp fintechStartup;
+    private StartUp realEstateStartup;
+    private BattleAdvantageDecorator osDecorator;
+    private BattleAdvantageDecorator socialMediaDecorator;
+    private BattleAdvantageDecorator fintechDecorator;
+    private BattleAdvantageDecorator realEstateDecorator;
 
-
+    /**
+     * Sets up the test environment with initialized startups and their decorators.
+     */
     @BeforeEach
     void setUp() {
         osStartup = new StartUp("OS Startup", StartupType.OPERATING_SYSTEMS,
@@ -37,50 +48,49 @@ public class BattleAdvantage {
         socialMediaDecorator = new BattleAdvantageDecorator(socialMediaStartup);
         fintechDecorator = new BattleAdvantageDecorator(fintechStartup);
         realEstateDecorator = new BattleAdvantageDecorator(realEstateStartup);
-
     }
 
+    /**
+     * Tests if the Operating Systems startup has an advantage over the Social Media startup.
+     */
     @Test
     @DisplayName("Test Advantage Calculation - OS vs Social Media")
     void testAdvantageOSvsSocialMedia() {
-        // Determine advantage
         osDecorator.determinAdvantage(socialMediaDecorator);
-
-        // Check if advantage is applied
         assertTrue(osDecorator.isAdvantage());
     }
 
+    /**
+     * Tests if the FinTech startup has an advantage over the Real Estate startup.
+     */
     @Test
     @DisplayName("Test Advantage Calculation - FinTech vs Real Estate")
     void testAdvantageFinTechvsRealEstate() {
-        // Determine advantage
         fintechDecorator.determinAdvantage(realEstateDecorator);
-
-        // Check if advantage is applied
         assertTrue(fintechDecorator.isAdvantage());
     }
 
+    /**
+     * Tests that the Operating Systems startup does not have an advantage over the FinTech startup.
+     */
     @Test
     @DisplayName("Test No Advantage - OS vs FinTech")
     void testNoAdvantageOSvsFinTech() {
-        // Determine advantage
         osDecorator.determinAdvantage(fintechDecorator);
-
-        // Check that no advantage is applied
         assertFalse(osDecorator.isAdvantage());
     }
 
+    /**
+     * Tests that damage boost is applied correctly when an advantage is present.
+     */
     @Test
     @DisplayName("Test Damage Boost Application with Advantage")
     void testDamageBoostWithAdvantage() {
-
         osDecorator.getAttacks().add(AttackType.TALENT_DRAIN);
         osDecorator.getAttacks().add(AttackType.TRADE_SECRET_THEFT);
 
-
         osDecorator.determinAdvantage(socialMediaDecorator);
         osDecorator.calculateDamageWithAdvantage();
-
 
         for (AttackType attack : osDecorator.getAttacks()) {
             double expectedDamage = attack.getDamage() / 1.1; // Reverse the boost calculation
@@ -89,16 +99,16 @@ public class BattleAdvantage {
         }
     }
 
+    /**
+     * Tests that no damage boost is applied when there is no advantage.
+     */
     @Test
     @DisplayName("Test No Damage Boost Without Advantage")
     void testNoDamageBoostWithoutAdvantage() {
-
         fintechDecorator.getAttacks().add(AttackType.PRICE_UNDERCUTTING);
         fintechDecorator.getAttacks().add(AttackType.TALENT_DRAIN);
 
-
         fintechDecorator.calculateDamageWithAdvantage();
-
 
         for (AttackType attack : fintechDecorator.getAttacks()) {
             double expectedDamage = attack.getDamage();

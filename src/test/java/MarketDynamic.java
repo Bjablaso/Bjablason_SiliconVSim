@@ -10,12 +10,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class MarketDynamic {
-    StartUp fintechStartup;
-    StartUp healthcareStartup;
-    StartUp smallStartup;
-    StartUp largeStartup;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Tests market dynamics by applying event effects to different startups.
+ */
+public class MarketDynamic {
+    private StartUp fintechStartup;
+    private StartUp healthcareStartup;
+    private StartUp smallStartup;
+    private StartUp largeStartup;
+
+    /**
+     * Sets up the environment by initializing startups with specific attributes.
+     */
     @BeforeEach
     void setup() {
         fintechStartup = new StartUp("FinTech Startup", StartupType.FINTECH,
@@ -31,6 +43,9 @@ public class MarketDynamic {
                 150000, 50000, 30.0, StartUpGrade.Large, StartupLevel.TECH_STAR);
     }
 
+    /**
+     * Tests the effect of an Economic Downturn event on a FinTech startup.
+     */
     @Test
     @DisplayName("Test Apply Event Effect - Economic Downturn on FinTech")
     void testEconomicDownturnFintech() {
@@ -39,16 +54,21 @@ public class MarketDynamic {
         // Expected revenue after applying Economic Downturn
         double expectedRevenue = fintechStartup.getRevenue() -
                 (fintechStartup.getRevenue() * EventType.ECONOMIC_DOWNTURN.getImpactFactor());
-        System.out.println("Before "+fintechStartup.getRevenue());
+
+        System.out.println("Before: " + fintechStartup.getRevenue());
 
         // Apply event effect
         fintechStartup.applyEventEffect(event);
 
-        System.out.println("After "+fintechStartup.getRevenue());
+        System.out.println("After: " + fintechStartup.getRevenue());
+
         // Assert revenue change
         assertEquals(expectedRevenue, fintechStartup.getRevenue(), 0.001);
     }
 
+    /**
+     * Tests the effect of an Economic Downturn event on a Healthcare startup.
+     */
     @Test
     @DisplayName("Test Apply Event Effect - Economic Downturn on Healthcare")
     void testEconomicDownturnHealthcare() {
@@ -65,35 +85,41 @@ public class MarketDynamic {
         assertEquals(expectedRevenue, healthcareStartup.getRevenue(), 0.001);
     }
 
+    /**
+     * Tests the effect of a Regulatory Scrutiny event on a large startup.
+     */
     @Test
     @DisplayName("Test Apply Event Effect - Regulatory Scrutiny on Large Startup")
     void testRegulatoryScrutinyLargeStartup() {
-        Quarter event = Quarter.ThirdQuarter;
+        Quarter event = Quarter.ThirdQuarter; // Associated with Regulatory Scrutiny
 
-
+        // Expected market share after applying Regulatory Scrutiny
         double expectedMarketShare = largeStartup.getMarketShare() -
                 (largeStartup.getMarketShare() * (largeStartup.getGrade().getMarketShare() / 100.0));
 
-
+        // Apply event effect
         largeStartup.applyEventEffect(event);
 
-
+        // Assert market share change
         assertEquals(expectedMarketShare, largeStartup.getMarketShare(), 0.001);
     }
 
+    /**
+     * Tests the effect of a Regulatory Scrutiny event on a small startup.
+     */
     @Test
     @DisplayName("Test Apply Event Effect - Regulatory Scrutiny on Small Startup")
     void testRegulatoryScrutinySmallStartup() {
-        Quarter event = Quarter.ThirdQuarter;
+        Quarter event = Quarter.ThirdQuarter; // Associated with Regulatory Scrutiny
 
-
+        // Expected market share after applying Regulatory Scrutiny
         double expectedMarketShare = smallStartup.getMarketShare() +
                 (smallStartup.getGrade().getMarketShare() * 2.75 / 100.0);
 
-
+        // Apply event effect
         smallStartup.applyEventEffect(event);
 
-
+        // Assert market share change
         assertEquals(expectedMarketShare, smallStartup.getMarketShare(), 0.001);
     }
 }

@@ -3,6 +3,7 @@ package VSim.Util;
 import VSim.Core.StartUp;
 import VSim.Types.StartupType;
 
+
 public class BattleAdvantageDecorator extends StartUp {
     private StartUp baseStartup;
 

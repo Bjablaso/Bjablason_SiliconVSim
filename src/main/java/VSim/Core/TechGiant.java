@@ -10,12 +10,14 @@ public class TechGiant implements EventObserver {
     private String currentEvent;
     private List<StartUp> startups;
     private double funds;
+    private boolean exitSim; // -> determine if tech Giant should exit sim after a specified action.
 
     public TechGiant(String name, double initialFunds) {
         this.name = name;
         this.startups = new ArrayList<>();
         this.funds = initialFunds;
         this.currentEvent = null;
+        this.exitSim = false;
     }
 
     public void addStartup(StartUp startup) {
@@ -63,9 +65,12 @@ public class TechGiant implements EventObserver {
         // Example: Decide on an action based on strategy and available funds
     }
 
-    public void exitSimulation() {
+    public boolean exitSimulation() {
         // Logic to remove the Tech Giant from the simulation
         // Example: Clear startups list and set funds to zero
+
+
+        return exitSim;
     }
 
 

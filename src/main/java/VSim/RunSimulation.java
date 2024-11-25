@@ -40,6 +40,10 @@ public class RunSimulation {
      *  Run the simulation base on all initialize factors
      */
     public void runSimulation() {
+        do {
+            // -> all events happen here
+
+        }while(!SimulationEnded);
 
     }
 

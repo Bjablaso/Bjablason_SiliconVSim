@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StartUp implements StartUpInterface {
+    private String name;
     private StartupType type;       // e.g., SOCIAL_MEDIA, FINTECH
     private int netIncome;          // Attack Power
     private int revenue;            // Health
@@ -20,7 +21,8 @@ public class StartUp implements StartUpInterface {
     private List<AttackType> attacks; // List of available attacks
 
 
-    public StartUp(StartupType type, int netIncome, int revenue, int marketShare, double funds, StartupLevel levelType ) {
+    public StartUp(String startupName, StartupType type, int netIncome, int revenue, int marketShare, double funds, StartupLevel levelType ) {
+        this.name = startupName;
         this.type = type;
         this.netIncome = netIncome;
         this.revenue = revenue;
@@ -39,6 +41,7 @@ public class StartUp implements StartUpInterface {
         return type;
     }
 
+    public String getName() { return name; }
 
     public int getNetIncome() {
         return netIncome;
@@ -84,6 +87,7 @@ public class StartUp implements StartUpInterface {
     public void setFunds(double funds) {
         this.funds = funds;
     }
+
 
     @Override
     public void levelUp() {

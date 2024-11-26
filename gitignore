@@ -1,0 +1,42 @@
+# Ignore Gradle files and build output
+.gradle/
+build/
+
+# Ignore compiled Java classes (optional)
+*.class 
+
+# Ignore IntelliJ and Eclipse project files
+*.iml
+.idea/
+.classpath
+.project
+
+# Ignore OS system files (for macOS)
+.DS_Store
+
+# Ignore other generated files like jars and logs
+*.jar
+*.war
+*.zip
+*.log
+*.tar
+*.db
+
+# Ignore CMake generated files if applicable
+CMakeFiles/
+CMakeCache.txt
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+
+# Ignore OS-specific files
+.DS_Store
+
+# Ignore jar and other build artifacts if needed
+*.jar
+*.zip
+*.tar
+.idea/misc.xml
+.hporf

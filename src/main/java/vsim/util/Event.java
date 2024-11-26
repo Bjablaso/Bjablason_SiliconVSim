@@ -53,4 +53,8 @@ public class Event {
     public void updateEvent(Quarter quarter) {
         this.currentEvent = quarter;
     }
+
+    public Quarter getCurrentEvent() {
+        return currentEvent;
+    }
 }

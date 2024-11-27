@@ -22,7 +22,6 @@ public class Battle<T> {
         this.battlerOne = battlerOne;
         this.battlerTwo = battlerTwo;
     }
-
     /**
      * Method to conduct a battle between two participants.
      *
@@ -41,18 +40,20 @@ public class Battle<T> {
             StartUp startupTwo = wrapAsDecorator(techGiantTwo.getBattlePick());
 
             if (startupOne != null && startupTwo != null) {
-                StartUp winner = executeStartupBattle(
-                        (BattleAdvantageDecorator) startupOne,
-                        (BattleAdvantageDecorator) startupTwo,
-                        currentQuarterEvent
-                );
+                while (startupOne.getRevenue() > 0 && startupTwo.getRevenue() > 0) {
+                    StartUp winner = executeStartupBattle(
+                            (BattleAdvantageDecorator) startupOne,
+                            (BattleAdvantageDecorator) startupTwo,
+                            currentQuarterEvent
+                    );
 
-                // Ensure market share updates are only applied when there is a winner
-                if (winner != null) {
-                    double share = 5.0; // Fixed market share increase for the winner
-                    winner.updateMarketShare(share);
-                    System.out.printf("Winner's market share updated by %.2f%%\n", share);
-                    return winner;
+                    if (winner != null) {
+                        // Apply market share updates only for a definitive winner
+                        double share = 5.0; // Fixed market share increase for the winner
+                        winner.updateMarketShare(share);
+                        System.out.printf("Winner's market share updated by %.2f%%\n", share);
+                        return winner;
+                    }
                 }
             }
         } else if (battlerOne instanceof TechGiant && battlerTwo instanceof StartUp) {
@@ -62,19 +63,22 @@ public class Battle<T> {
             StartUp techGiantStartup = wrapAsDecorator(techGiant.getBattlePick());
 
             if (techGiantStartup != null && wildStartup != null) {
-                StartUp winner = executeStartupBattle(
-                        (BattleAdvantageDecorator) techGiantStartup,
-                        (BattleAdvantageDecorator) wildStartup,
-                        currentQuarterEvent
-                );
+                while (techGiantStartup.getRevenue() > 0 && wildStartup.getRevenue() > 0) {
+                    StartUp winner = executeStartupBattle(
+                            (BattleAdvantageDecorator) techGiantStartup,
+                            (BattleAdvantageDecorator) wildStartup,
+                            currentQuarterEvent
+                    );
 
-                // Ensure Tech Giant acquires wildcard startup if it wins
-                if (winner == techGiantStartup) {
-                    techGiant.acquireStartup(wildStartup);
-                    System.out.printf("%s acquired wildcard startup %s.\n", techGiant.getName(), wildStartup.getName());
+                    if (winner == techGiantStartup) {
+                        techGiant.acquireStartup(wildStartup);
+                        System.out.printf("%s acquired wildcard startup %s.\n", techGiant.getName(), wildStartup.getName());
+                        return winner;
+                    } else if (winner == wildStartup) {
+                        System.out.printf("Wildcard startup %s won the battle.\n", wildStartup.getName());
+                        return winner;
+                    }
                 }
-
-                return winner;
             }
         }
 
@@ -131,6 +135,9 @@ public class Battle<T> {
             startupOne.updategetWindeterminer(1);
             startupTwo.updategetWindeterminer(-1);
             applyEffect(startupOne, startupTwo);
+            TechGiant techGiantTwo = (TechGiant) battlerTwo;
+            techGiantTwo.removeStartup(startupTwo);
+            techGiantTwo.exit();
             return startupOne;
         }
 
@@ -149,6 +156,9 @@ public class Battle<T> {
             startupTwo.updategetWindeterminer(1);
             startupOne.updategetWindeterminer(-1);
             applyEffect(startupTwo, startupOne);
+            TechGiant techGiantOne = (TechGiant) battlerOne;
+            techGiantOne.removeStartup(startupOne);
+            techGiantOne.exit();
             return startupTwo;
         }
 

@@ -51,6 +51,7 @@ public class TechGiantBuilder {
      * @return a new instance of {@link TechGiant}
      */
     public TechGiant build() {
+        System.out.println("Starting "+name+ " with funds: "+funds+"\n");
         TechGiant techGiant = new TechGiant(name, funds);
         for (StartUp startup : startups) {
             techGiant.addStartup(startup);

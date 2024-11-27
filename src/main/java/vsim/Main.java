@@ -3,6 +3,14 @@ package vsim;
 public class Main {
     public static void main(String[] args) {
 
+        RunSimulation simulation = new RunSimulation();
+
+        int count = 0;
+
+        while(count < 2) {
+            simulation.runSimulation();
+            count++;
+        }
 
     }
 }

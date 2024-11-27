@@ -10,7 +10,7 @@ group = 'com.beginsecure'
 version = '1.0-SNAPSHOT'
 
 application {
-  mainClass = 'VSim.Main'
+  mainClass = 'vsim.Main'
 }
 
 repositories {

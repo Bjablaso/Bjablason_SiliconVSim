@@ -43,11 +43,13 @@ public class TechGiant implements EventObserver {
      * @param startup The startup to add.
      */
     public void addStartup(StartUp startup) {
-        if (funds < 0 || startup.getRevenue() > funds) {
-            throw new IllegalArgumentException("Insufficient funds to build new startup");
+        if (funds > 0){
+            System.out.println("Building " + startup.getName() + " with " + funds + " funds");
+            System.out.println("Adding " + startup.getName() + " to"+this.name+" TechGiant\n");
+            this.funds -= startup.getRevenue();
+            startups.add(startup);
         }
-        this.funds -= startup.getRevenue();
-        startups.add(startup);
+        System.out.println("Startup cant be add to TechGiant :  "+this.name+ "due to insufficient funds");
     }
 
     /**
@@ -115,26 +117,30 @@ public class TechGiant implements EventObserver {
         return funds;
     }
 
+    public boolean isExitSim() {
+        return exitSim;
+    }
+
     /**
      * Invests a specified amount into all owned startups.
      *
      * @param investmentAmount The amount to invest.
      */
     public void invest(double investmentAmount) {
-        if (funds < investmentAmount) {
-            throw new IllegalArgumentException("Insufficient funds for investment");
-        }
+        if (funds > investmentAmount) {
+            double growthMultiplier = 0.1;
 
-        double growthMultiplier = 0.1;
-
-        for (StartUp startup : startups) {
-            this.funds -= investmentAmount;
-            int marketShareGrowth = (int) (investmentAmount * growthMultiplier);
-            int revenueGrowth = (int) (investmentAmount * growthMultiplier * 2);
-            startup.updateRevenue(marketShareGrowth);
-            startup.updateRevenue(revenueGrowth);
+            for (StartUp startup : startups) {
+                this.funds -= investmentAmount;
+                int marketShareGrowth = (int) (investmentAmount * growthMultiplier);
+                int revenueGrowth = (int) (investmentAmount * growthMultiplier * 2);
+                startup.updateRevenue(marketShareGrowth);
+                startup.updateRevenue(revenueGrowth);
+            }
+            System.out.println(name + " made an investment. Current funds amount: " + funds);
         }
-        System.out.println(name + " made an investment. Current funds amount: " + funds);
+        System.out.println("TeachGiant "+this.name+ "Cant make investment due to insufficient funds");
+
     }
 
     /**
@@ -181,16 +187,6 @@ public class TechGiant implements EventObserver {
         System.out.println(name + " now has $" + funds + " remaining funds.");
     }
 
-    /**
-     * Executes an action based on the provided Action type.
-     *
-     * @param action The action to execute.
-     */
-    public void takeAction(Action action) {
-        if (Objects.requireNonNull(action) == Action.Invest) {
-            invest(investment);
-        }
-    }
 
     /**
      * Executes an action involving a startup based on the provided Action type.
@@ -231,10 +227,14 @@ public class TechGiant implements EventObserver {
      * @return True if the Tech Giant should exit; false otherwise.
      */
     public boolean exitSimulation() {
-        if (funds <= 0 && startups.isEmpty()) {
+        if (startups.isEmpty()) {
             return this.exitSim = true;
         }
         return this.exitSim = false;
+    }
+
+    public void exit(){
+        this.exitSim = true;
     }
 
     public StartUp getBattlePick() {

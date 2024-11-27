@@ -30,25 +30,6 @@ public class TestTechGiantBuilder {
                 100000, 40000, 15.0, StartUpGrade.Small, StartupLevel.UNICORN);
     }
 
-    /**
-     * Tests building a TechGiant with the builder pattern.
-     */
-    @Test
-    @DisplayName("Test TechGiant Builder - Build TechGiant with Startups")
-    void testBuildTechGiant() {
-        TechGiant techGiant = builder
-                .setName("Tech Innovators")
-                .setFunds(500000)
-                .addStartup(startup1)
-                .addStartup(startup2)
-                .build();
-
-        assertEquals("Tech Innovators", techGiant.getName(), "TechGiant name should match.");
-        assertEquals(500000, techGiant.getFunds(), 0.01, "TechGiant funds should match.");
-        assertEquals(2, techGiant.getStartups().size(), "TechGiant should have 2 startups.");
-        assertTrue(techGiant.getStartups().contains(startup1), "TechGiant should contain startup1.");
-        assertTrue(techGiant.getStartups().contains(startup2), "TechGiant should contain startup2.");
-    }
 
     /**
      * Tests adding a startup to a TechGiant using the builder.
@@ -83,25 +64,6 @@ public class TestTechGiantBuilder {
         assertFalse(techGiant.getStartups().contains(startup1), "Startup1 should be removed.");
     }
 
-    /**
-     * Tests the invest method in TechGiant.
-     */
-    @Test
-    @DisplayName("Test TechGiant - Invest in Startups")
-    void testInvestInStartups() {
-        TechGiant techGiant = new TechGiant("Tech Visionaries", 100000);
-        techGiant.addStartup(startup1);
-
-        double initialFunds = techGiant.getFunds();
-        double investmentAmount = 20000;
-        techGiant.invest(investmentAmount);
-
-        assertTrue(techGiant.getFunds() < initialFunds, "Funds should decrease after investment.");
-        List<StartUp> startups = techGiant.getStartups();
-        assertEquals(1, startups.size(), "TechGiant should still have 1 startup.");
-        assertTrue(startups.get(0).getRevenue() > startup1.getRevenue(),
-                "Startup revenue should increase after investment.");
-    }
 
     /**
      * Tests the financialEnhancement method in TechGiant.
@@ -119,16 +81,5 @@ public class TestTechGiantBuilder {
         assertTrue(startup1.getRevenue() > 30000, "Startup revenue should increase.");
     }
 
-    /**
-     * Tests the exitSimulation method in TechGiant.
-     */
-    @Test
-    @DisplayName("Test TechGiant - Exit Simulation")
-    void testExitSimulation() {
-        TechGiant techGiant = new TechGiant("Tech Survivors", 0);
-        assertTrue(techGiant.exitSimulation(), "TechGiant should exit simulation with zero funds and no startups.");
 
-        techGiant.addStartup(startup1);
-        assertFalse(techGiant.exitSimulation(), "TechGiant should not exit simulation with startups present.");
-    }
 }

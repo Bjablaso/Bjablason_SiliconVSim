@@ -14,7 +14,7 @@ import vsim.types.Quarter;
 public class TechGiant implements EventObserver {
     private final String name; // Name of the Tech Giant
     private Quarter currentEvent; // Current event affecting the Tech Giant
-   private final List<StartUp> startups; // List of startups owned by the Tech Giant
+    private final List<StartUp> startups; // List of startups owned by the Tech Giant
     private double funds; // Available funds for investments and acquisitions
     private boolean exitSim; // Determines if the Tech Giant should exit the simulation
     private double investment; // Amount allocated for investment
@@ -42,13 +42,13 @@ public class TechGiant implements EventObserver {
      * @param startup The startup to add.
      */
     public void addStartup(StartUp startup) {
-        if (funds > 0){
+        if (funds > 0) {
             System.out.println("Building " + startup.getName() + " with " + funds + " funds");
-            System.out.println("Adding " + startup.getName() + " to"+this.name+" TechGiant\n");
+            System.out.println("Adding " + startup.getName() + " to" + this.name + " TechGiant\n");
             this.funds -= startup.getRevenue();
-             startups.add(startup);
+            startups.add(startup);
         }
-        System.out.println("Startup cant be add to TechGiant :  "+this.name+ "due to insufficient funds");
+        System.out.println(this.name + " TechGiant cant get start insufficient funds");
     }
 
     /**
@@ -104,7 +104,7 @@ public class TechGiant implements EventObserver {
      * @return The list of startups.
      */
     public List<StartUp> getStartups() {
-        return startups;
+        return new ArrayList<>(startups);
     }
 
     /**
@@ -127,7 +127,7 @@ public class TechGiant implements EventObserver {
      */
     public void invest(double investmentAmount) {
 
-        if(startups.isEmpty()){
+        if (startups.isEmpty()) {
             System.out.println("No start up in the list");
 
         } else  if (funds > investmentAmount) {
@@ -144,7 +144,7 @@ public class TechGiant implements EventObserver {
             }
             System.out.println(name + " made an investment. Current funds amount: " + funds);
         }
-        System.out.println("TeachGiant "+this.name+ "Cant make investment due to insufficient funds");
+        System.out.println("TeachGiant " + this.name + "cannot invest:\tinsufficient funds");
 
     }
 
@@ -155,9 +155,9 @@ public class TechGiant implements EventObserver {
      */
     public void acquireStartup(StartUp startup) {
 
-
-            startups.add(startup);
-            System.out.println(name + " acquired new startup " + startup.getName() + ". Current funds amount: " + funds + "\n");
+        startups.add(startup);
+        System.out.println(name + " acquired startup "
+                + startup.getName() + "Current funds : " + funds + "\n");
 
     }
 
@@ -170,7 +170,8 @@ public class TechGiant implements EventObserver {
             return;
         }
 
-        if(startups.isEmpty()){
+        if (startups.isEmpty()) {
+
             System.out.println("No start up in the list");
 
         }
@@ -188,7 +189,8 @@ public class TechGiant implements EventObserver {
             int marketShareIncrease = (int) (investmentPerStartup * marketShareGrowthMultiplier);
 
             startup.updateRevenue(revenueIncrease);
-            startup.updateMarketShare(Math.min(startup.getMarketShare() + marketShareIncrease, 100));
+            startup.updateMarketShare(Math.min(startup.getMarketShare()
+                    + marketShareIncrease, 100));
 
             System.out.println("Financial enhancement applied to " + startup.getType() + ":");
             System.out.println("- Revenue increased by: $" + revenueIncrease);
@@ -220,16 +222,24 @@ public class TechGiant implements EventObserver {
                 financialEnhancement();
                 break;
             default:
-                throw new IllegalArgumentException(name + " action not recognized");
+                throw new IllegalArgumentException(name
+                        + " action not recognized");
         }
     }
 
-    public StartUp battlePick(StartUp startupPick) {
-        if(!startups.contains(startupPick)) {
-            throw new IllegalArgumentException(name + " has no startup " + startupPick.getName() + "\n");
+    /**
+     * Set Battle pic for the desire TechGiant.
+     * @param startupPick the startup performing in battle
+     * @return
+     */
+    public void battlePick(StartUp startupPick) {
+        if (!startups.contains(startupPick)) {
+            throw new IllegalArgumentException(name + " has no startup "
+                    + startupPick.getName() + "%n");
+        } else {
+            this.battlePick = startupPick;
         }
 
-        return this.battlePick = startupPick;
     }
 
     /**
@@ -244,7 +254,7 @@ public class TechGiant implements EventObserver {
         return this.exitSim = false;
     }
 
-    public void exit(){
+    public void exit() {
         this.exitSim = true;
     }
 

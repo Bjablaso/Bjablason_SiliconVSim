@@ -1,6 +1,5 @@
 package vsim.siminterface;
 
-
 import vsim.types.Quarter;
 
 /**

@@ -10,9 +10,8 @@ import vsim.types.StartupType;
  */
 public class BattleAdvantageDecorator extends StartUp {
     private boolean isAdvantage;
-    private final double attackBoost = 10.0;
-    public AttackType currentAttack;
-    private boolean chance;
+    private static final double attackBoost = 10.0;
+    private boolean chance = false;
 
     /**
      * Constructs a BattleAdvantageDecorator with the specified base startup.
@@ -30,8 +29,7 @@ public class BattleAdvantageDecorator extends StartUp {
                 baseStartup.getLevel()
         );
         this.isAdvantage = false;
-        this.currentAttack = null;
-        this.chance = false;
+        //this.chance = false;
     }
 
     /**

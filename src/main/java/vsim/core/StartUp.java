@@ -1,4 +1,5 @@
 package vsim.core;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +51,6 @@ public class StartUp implements StartUpInterface {
         this.level = levelType; // Default level
         setLevelVal(level.getLevelVal());
         this.xp = 0;
-        this.winnerIndicator = 0;
         this.attacks = new ArrayList<>();
         Collections.addAll(attacks, AttackType.values());
     }
@@ -160,7 +160,7 @@ public class StartUp implements StartUpInterface {
      * @return The list of attacks.
      */
     public List<AttackType> getAttacks() {
-        return attacks;
+        return Collections.unmodifiableList(attacks);
     }
 
     /**
@@ -179,6 +179,14 @@ public class StartUp implements StartUpInterface {
      */
     public void updateMarketShare(double share) {
         this.marketShare += share;
+    }
+
+    /**
+     * Update Startup level.
+     * @param newLevel take in new level
+     */
+    public void updateStartUpLevel(StartupLevel newLevel) {
+        this.level = newLevel;
     }
 
     /**
@@ -221,13 +229,13 @@ public class StartUp implements StartUpInterface {
             case "Economic Downturn":
                 if (type == StartupType.FINTECH) {
                     this.revenue -= revenue * EventType.ECONOMIC_DOWNTURN.getImpactFactor();
-                    System.out.printf("For the %s quarter cycle, %s reduces %s %s revenue by: %f%%%n",
+                    System.out.printf("For the %s quarter, %s reduces %s %s revenue by: %f%%%n",
                             event.getDescription(), current.getDescription(),
                             name, type,
                             EventType.ECONOMIC_DOWNTURN.getImpactFactor() * 100);
                 } else if (type == StartupType.HEALTHCARE) {
                     this.revenue += revenue * EventType.ECONOMIC_DOWNTURN.getImpactFactor();
-                    System.out.printf("For the %s quarter cycle, %s increases %s %s revenue by: %f%%%n",
+                    System.out.printf("For the %s quarter, %s increases %s %s revenue by: %f%%%n",
                             event.getDescription(), current.getDescription(),
                             name, type,
                             EventType.ECONOMIC_DOWNTURN.getImpactFactor() * 100);
@@ -237,13 +245,14 @@ public class StartUp implements StartUpInterface {
             case "Regulatory Scrutiny":
                 if (marketShare > StartUpGrade.Large.getMarketShare()) {
                     marketShare -= marketShare * (grade.getMarketShare() / 100.0);
-                    System.out.printf("For the %s quarter cycle, %s reduces %s market share by: %f%%%n",
+                    System.out.printf("For the %s quarter, %s reduces %s market share by: %f%% %n",
                             event.getDescription(), current.getDescription(),
                             name, grade.getMarketShare() * 100);
                 } else if (marketShare < StartUpGrade.Large.getMarketShare()) {
                     double marketshareReduction = 2.75;
                     marketShare += marketshareReduction * (grade.getMarketShare() / 100.0);
-                    System.out.printf("For the %s quarter cycle, %s increases %s market share by: %f%%%n",
+                    System.out.printf("For the %s quarter, "
+                                    + "%s increases %s market share by: %f%% %n",
                             event.getDescription(), current.getDescription(),
                             name, grade.getMarketShare() * 100);
                 }

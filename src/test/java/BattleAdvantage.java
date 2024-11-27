@@ -16,10 +16,6 @@ import org.junit.jupiter.api.Test;
  * Tests the battle advantages and damage boost calculations for startups.
  */
 public class BattleAdvantage {
-    private StartUp osStartup;
-    private StartUp socialMediaStartup;
-    private StartUp fintechStartup;
-    private StartUp realEstateStartup;
     private BattleAdvantageDecorator osDecorator;
     private BattleAdvantageDecorator socialMediaDecorator;
     private BattleAdvantageDecorator fintechDecorator;
@@ -30,13 +26,13 @@ public class BattleAdvantage {
      */
     @BeforeEach
     void setUp() {
-        osStartup = new StartUp("OS Startup", StartupType.OPERATING_SYSTEMS,
+        StartUp osStartup = new StartUp("OS Startup", StartupType.OPERATING_SYSTEMS,
                 100000, 30000, 20.0, StartUpGrade.Small, StartupLevel.TECH_STAR);
-        socialMediaStartup = new StartUp("Social Media Startup", StartupType.SOCIAL_MEDIA,
+        StartUp socialMediaStartup = new StartUp("Social Media Startup", StartupType.SOCIAL_MEDIA,
                 80000, 25000, 15.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
-        fintechStartup = new StartUp("FinTech Startup", StartupType.FINTECH,
+        StartUp fintechStartup = new StartUp("FinTech Startup", StartupType.FINTECH,
                 120000, 40000, 25.0, StartUpGrade.Large, StartupLevel.UNICORN);
-        realEstateStartup = new StartUp("Real Estate Startup", StartupType.REAL_ESTATE,
+        StartUp realEstateStartup = new StartUp("Real Estate Startup", StartupType.REAL_ESTATE,
                 90000, 35000, 18.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
 
         osDecorator = new BattleAdvantageDecorator(osStartup);

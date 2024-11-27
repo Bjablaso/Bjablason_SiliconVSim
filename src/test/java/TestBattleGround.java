@@ -82,7 +82,8 @@ public class TestBattleGround {
     @Test
     @DisplayName("Test Wildcard Startup Passing to Battle")
     void testWildcardStartupPassing() {
-        StartUp wildcardStartup = new StartUp("Wildcard Startup", StartupType.REAL_ESTATE, 8000, 40000, 10.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
+        StartUp wildcardStartup = new StartUp("Wildcard Startup", StartupType.REAL_ESTATE, 8000,
+                40000, 10.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
 
         Battle<Object> battle = new Battle<>(techGiantOne, wildcardStartup);
 
@@ -103,7 +104,7 @@ public class TestBattleGround {
         eventNotifier.notifyObservers();
 
         Battle<TechGiant> battle = new Battle<>(techGiantOne, techGiantTwo);
-        battle.Battle(techGiantOne.getCurrentEvent());
+        battle.battle(techGiantOne.getCurrentEvent());
 
         StartUp startupOne = techGiantOne.getBattlePick();
         StartUp startupTwo = techGiantTwo.getBattlePick();

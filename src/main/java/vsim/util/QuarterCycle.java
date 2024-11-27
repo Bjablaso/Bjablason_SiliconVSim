@@ -15,7 +15,7 @@ public class QuarterCycle {
     /**
      * create a new  circular linked list Base Quarter enum class.
      * */
-    public QuarterCycle() {
+    private QuarterCycle() {
         Node mover = null;
         for (Quarter q : Quarter.values()) {
             Node newNode = new Node(q);
@@ -48,7 +48,7 @@ public class QuarterCycle {
      * This method return a single instance.
      * @return new QuarterCycle.
      */
-    public static QuarterCycle getSinglequarterInstance() {
+    public static synchronized  QuarterCycle getSinglequarterInstance() {
         if (singlequarterInstance == null) {
             singlequarterInstance = new QuarterCycle();
         }
@@ -58,7 +58,7 @@ public class QuarterCycle {
     /**
      * Node class that create node that will later be added to our circular linked list.
      */
-    class Node {
+    static class Node {
         Quarter quarter;
         Node next;
 

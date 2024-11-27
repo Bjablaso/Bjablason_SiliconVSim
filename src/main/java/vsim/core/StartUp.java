@@ -160,7 +160,8 @@ public class StartUp implements StartUpInterface {
      * @return The list of attacks.
      */
     public List<AttackType> getAttacks() {
-        return Collections.unmodifiableList(attacks);
+        return new ArrayList<>(this.attacks);
+               // Collections.unmodifiableList(this.attacks);
     }
 
     /**

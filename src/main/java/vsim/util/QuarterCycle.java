@@ -39,6 +39,10 @@ public class QuarterCycle {
      * @return current Quarter.
      */
     public Quarter getcurrentquaterCycle() {
+        if (current == null) {
+            throw new IllegalStateException("QuarterCycle not initialized properly");
+        }
+
         Quarter currentQuarter = current.quarter;
         current = current.next;
         return currentQuarter;

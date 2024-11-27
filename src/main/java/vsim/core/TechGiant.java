@@ -104,7 +104,7 @@ public class TechGiant implements EventObserver {
      * @return The list of startups.
      */
     public List<StartUp> getStartups() {
-        return new ArrayList<>(startups);
+        return new ArrayList<>(this.startups);
     }
 
     /**

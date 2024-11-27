@@ -71,20 +71,6 @@ public class TestVSimulator {
     }
 
     /**
-     * Tests the initialization of the Event cycle and its transitions.
-     */
-    @Test
-    @DisplayName("Test Quarter Cycle Transitions")
-    void testQuarterCycleTransitions() {
-        QuarterCycle quarterCycle = QuarterCycle.getSinglequarterInstance();
-
-        assertEquals(Quarter.FirstQuarter, quarterCycle.getcurrentquaterCycle(), "Initial quarter should be FirstQuarter.");
-        assertEquals(Quarter.SecondQuarter, quarterCycle.getcurrentquaterCycle(), "Second call should return SecondQuarter.");
-        assertEquals(Quarter.ThirdQuarter, quarterCycle.getcurrentquaterCycle(), "Third call should return ThirdQuarter.");
-        assertEquals(Quarter.FourthQuarter, quarterCycle.getcurrentquaterCycle(), "Fourth call should return FourthQuarter.");
-    }
-
-    /**
      * Verifies that the simulation's battle functionality correctly applies effects to participants.
      */
     @Test

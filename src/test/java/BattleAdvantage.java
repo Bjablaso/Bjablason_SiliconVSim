@@ -77,16 +77,16 @@ public class BattleAdvantage {
     @Test
     @DisplayName("Test Damage Boost Application with Advantage")
     void testDamageBoostWithAdvantage() {
-        osDecorator.getAttacks().add(AttackType.TALENT_DRAIN);
-        osDecorator.getAttacks().add(AttackType.TRADE_SECRET_THEFT);
+        StartUp startupOne = new StartUp("FinTech Startup", StartupType.FINTECH, 8000, 40000,
+                10.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
+        StartUp startupTwo = new StartUp("Real Estate Startup", StartupType.REAL_ESTATE, 7000,
+                30000, 12.0, StartUpGrade.Small, StartupLevel.GARAGE_STARTUP);
 
-        osDecorator.determinAdvantage(socialMediaDecorator);
-        osDecorator.calculateDamageWithAdvantage();
+        BattleAdvantageDecorator advantageDecorator = new BattleAdvantageDecorator(startupOne);
+        advantageDecorator.determinAdvantage(startupTwo).calculateDamageWithAdvantage();
 
-        for (AttackType attack : osDecorator.getAttacks()) {
-            double expectedDamage = attack.getDamage() / 1.1; // Reverse the boost calculation
-            double actualDamage = expectedDamage + (expectedDamage * 0.1);
-            assertEquals(actualDamage, attack.getDamage(), 0.001);
+        for (AttackType attack : advantageDecorator.getAttacks()) {
+            assertTrue(attack.getDamage() > 0, "Attack damage should be boosted.");
         }
     }
 

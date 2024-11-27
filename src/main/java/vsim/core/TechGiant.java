@@ -2,7 +2,6 @@ package vsim.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import vsim.siminterface.EventObserver;
 import vsim.types.Action;
@@ -13,9 +12,9 @@ import vsim.types.Quarter;
  * Tech Giants manage startups, funds, and respond to events during the simulation.
  */
 public class TechGiant implements EventObserver {
-    private String name; // Name of the Tech Giant
+    private final String name; // Name of the Tech Giant
     private Quarter currentEvent; // Current event affecting the Tech Giant
-    private List<StartUp> startups; // List of startups owned by the Tech Giant
+   private final List<StartUp> startups; // List of startups owned by the Tech Giant
     private double funds; // Available funds for investments and acquisitions
     private boolean exitSim; // Determines if the Tech Giant should exit the simulation
     private double investment; // Amount allocated for investment
@@ -47,7 +46,7 @@ public class TechGiant implements EventObserver {
             System.out.println("Building " + startup.getName() + " with " + funds + " funds");
             System.out.println("Adding " + startup.getName() + " to"+this.name+" TechGiant\n");
             this.funds -= startup.getRevenue();
-            startups.add(startup);
+             startups.add(startup);
         }
         System.out.println("Startup cant be add to TechGiant :  "+this.name+ "due to insufficient funds");
     }
@@ -127,8 +126,14 @@ public class TechGiant implements EventObserver {
      * @param investmentAmount The amount to invest.
      */
     public void invest(double investmentAmount) {
-        if (funds > investmentAmount) {
+
+        if(startups.isEmpty()){
+            System.out.println("No start up in the list");
+
+        } else  if (funds > investmentAmount) {
             double growthMultiplier = 0.1;
+
+
 
             for (StartUp startup : startups) {
                 this.funds -= investmentAmount;
@@ -150,6 +155,7 @@ public class TechGiant implements EventObserver {
      */
     public void acquireStartup(StartUp startup) {
 
+
             startups.add(startup);
             System.out.println(name + " acquired new startup " + startup.getName() + ". Current funds amount: " + funds + "\n");
 
@@ -162,6 +168,11 @@ public class TechGiant implements EventObserver {
         if (funds <= 0) {
             System.out.println(name + " has insufficient funds for financial enhancement.");
             return;
+        }
+
+        if(startups.isEmpty()){
+            System.out.println("No start up in the list");
+
         }
 
         double revenueGrowthMultiplier = 0.2;
@@ -213,7 +224,7 @@ public class TechGiant implements EventObserver {
         }
     }
 
-    public StartUp BattlePic(StartUp startupPick) {
+    public StartUp battlePick(StartUp startupPick) {
         if(!startups.contains(startupPick)) {
             throw new IllegalArgumentException(name + " has no startup " + startupPick.getName() + "\n");
         }

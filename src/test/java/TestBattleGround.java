@@ -32,8 +32,8 @@ public class TestBattleGround {
         techGiantOne.addStartup(startupOne);
         techGiantTwo.addStartup(startupTwo);
 
-        techGiantOne.BattlePic(startupOne);
-        techGiantTwo.BattlePic(startupTwo);
+        techGiantOne.battlePick(startupOne);
+        techGiantTwo.battlePick(startupTwo);
 
         eventNotifier = new Event(Quarter.FirstQuarter);
         eventNotifier.addObserver(techGiantOne);

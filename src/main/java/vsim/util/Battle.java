@@ -132,8 +132,8 @@ public class Battle<T> {
         // Check if Startup Two has lost
         if (startupTwo.getRevenue() <= 0) {
             System.out.printf("%s wins the battle!\n", startupOne.getName());
-            startupOne.updategetWindeterminer(1);
-            startupTwo.updategetWindeterminer(-1);
+            startupOne.updateWinnerIndicator(1);
+            startupTwo.updateWinnerIndicator(-1);
             applyEffect(startupOne, startupTwo);
             TechGiant techGiantTwo = (TechGiant) battlerTwo;
             techGiantTwo.removeStartup(startupTwo);
@@ -153,8 +153,8 @@ public class Battle<T> {
         // Check if Startup One has lost
         if (startupOne.getRevenue() <= 0) {
             System.out.printf("%s wins the battle!\n", startupTwo.getName());
-            startupTwo.updategetWindeterminer(1);
-            startupOne.updategetWindeterminer(-1);
+            startupTwo.updateWinnerIndicator(1);
+            startupOne.updateWinnerIndicator(-1);
             applyEffect(startupTwo, startupOne);
             TechGiant techGiantOne = (TechGiant) battlerOne;
             techGiantOne.removeStartup(startupOne);

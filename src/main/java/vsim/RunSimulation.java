@@ -96,8 +96,15 @@ public class RunSimulation {
 
        // apple.addStartup(appleStartupOne);
         apple.addStartup(appleStartupTwo);
+        if(apple.getStartups().isEmpty()){
+            System.out.println("apple start ups is empty");
+        }
+
 
         google.addStartup(googleStartupOne);
+        if(google.getStartups().isEmpty()){
+            System.out.println("google start ups is empty");
+        }
       //  google.addStartup(googleStartupTwo);
 
 
@@ -141,12 +148,15 @@ public class RunSimulation {
                     break;
                 case FourthQuarter :
                     System.out.println("During the fourth quarter cycle Competitive Battles: \n");
-                    StartUp applebattleStartup = apple.getStartups().get(i);
-                    StartUp googlebattleStartup = google.getStartups().get(i);
-                    apple.BattlePic(applebattleStartup);
-                    google.BattlePic(googlebattleStartup);
-                    Battle<TechGiant> techGiantBattle = new Battle<>(apple, google);
-                    techGiantBattle.Battle(currentQuarterly);
+
+
+                        StartUp applebattleStartup = apple.getStartups().get(i);
+                        StartUp googlebattleStartup = google.getStartups().get(i);
+                        apple.battlePick(applebattleStartup);
+                        google.battlePick(googlebattleStartup);
+                        Battle<TechGiant> techGiantBattle = new Battle<>(apple, google);
+                        techGiantBattle.Battle(currentQuarterly);
+
                     break;
 
             }

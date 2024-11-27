@@ -96,14 +96,6 @@ public class BattleAdvantageDecorator extends StartUp {
         return this.chance = true; // Normal attack
     }
 
-    /**
-     * Executes the specified attack for this startup.
-     *
-     * @param attack The attack to execute.
-     */
-    public void attack(AttackType attack) {
-        this.currentAttack = attack;
-    }
 
     /**
      * Checks if this startup has an advantage.
